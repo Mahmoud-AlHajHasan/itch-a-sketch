@@ -42,7 +42,8 @@ function createXxAxis() {
       lineInnerDiv.classList.add(`removableInnerDiv`);
       lineInnerDiv.style.cssText = `flex :1;`;
       line.appendChild(lineInnerDiv);
-      lineInnerDiv.addEventListener(`mouseenter`, changeBackground);
+      lineInnerDiv.addEventListener(`mouseenter`, changeBackground, {once:true});
+
 
     }
   })
@@ -68,15 +69,31 @@ function randomIntFromInterval(min, max) {
   return Math.floor(Math.random() * (max - min + 1) + min)
 }
 
+let randomR = 200
+let randomG = 200
+let randomB = 200
 
-function changeBackground() {
-  let randomR = randomIntFromInterval(1, 100) * 2.55
-  let randomG = randomIntFromInterval(1, 100) * 2.55
-  let randomB = randomIntFromInterval(1, 100) * 2.55
+function changeBackground(e) {
   rgb = `rgb(${randomR},${randomG},${randomB})`
   this.style.cssText = `background-color : ${rgb};
                         flex :1`
-  console.log(`lol${this}`)
+  this.addEventListener(`mouseenter`, darken);
 }
 
+function darken(e) {
+  let rr =   rgbToArray(e.target.style.backgroundColor)[0] - 10
+  let bb =   rgbToArray(e.target.style.backgroundColor)[1] - 10
+  let gg =   rgbToArray(e.target.style.backgroundColor)[2] - 10
 
+  rgb = `rgb(${rr},${gg},${bb})`
+  this.style.cssText = `background-color : ${rgb};
+                        flex :1`
+}
+
+function rgbToArray(rgb){
+rgbArray = rgb.substring(4, rgb.length-1)
+         .replace(/ /g, '')
+         .split(',');
+
+return rgbArray
+}
