@@ -1,0 +1,17 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  display: flex;
+  justify-content: center;
+  background-color: whitesmoke;
+}
+
+#createBtn {
+  border : 0px solid white;
+  color: white;
+  background-color: sienna;
+}
